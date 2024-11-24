@@ -15,18 +15,18 @@ public class ProjectController {
     private ProjectService projectService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProjectEntity> getProjectOwnerById(@PathVariable Long id) {
+    public ResponseEntity<ProjectEntity> getProjectById(@PathVariable Long id) {
         return ResponseEntity.ok(projectService.getById(id));
     }
 
     @PostMapping
-    public ResponseEntity<ProjectEntity> createProjectOwner(@RequestBody ProjectDTO dto) {
+    public ResponseEntity<ProjectEntity> postProject(@RequestBody ProjectDTO dto) {
         ProjectEntity project = projectService.postProject(dto);
         return ResponseEntity.ok(project);
     }
 
     @PutMapping
-    public ResponseEntity<ProjectEntity> updateProjectOwner(@RequestBody ProjectDTO dto) {
+    public ResponseEntity<ProjectEntity> updateProject(@RequestBody ProjectDTO dto) {
         ProjectEntity updatedProject = projectService.updateProject(dto);
         return ResponseEntity.ok(updatedProject);
     }

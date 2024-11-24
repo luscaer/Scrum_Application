@@ -1,5 +1,6 @@
 package com.luscaer.Scrum_application.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
@@ -40,5 +41,6 @@ public class ProjectEntity {
     private ProjectOwnerEntity projectOwner;
 
     @OneToMany(mappedBy = "project")
-    private List<BacklogEntity> backlog;
+    @JsonBackReference
+    private List<BacklogEntity> backlogs;
 }

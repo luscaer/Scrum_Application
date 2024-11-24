@@ -8,6 +8,6 @@ public record BacklogDTO(
         String priority,
         String status,
         LocalDate deadline,
-        int complexity,
+        Integer complexity,
         Long projectId
 ) {}

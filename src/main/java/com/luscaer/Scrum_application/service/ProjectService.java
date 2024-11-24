@@ -77,6 +77,24 @@ public class ProjectService {
         return projectRepository.save(existingProject);
     }
 
+    public ProjectEntity updateProject(ProjectEntity entity) {
+        if (entity.getId()== null) {
+            throw new IllegalArgumentException("ID is required for updating a Project");
+        }
+
+        ProjectEntity existingProject = getById(entity.getId());
+
+        if (entity.getName() != null) {existingProject.setName(entity.getName());}
+        if (entity.getExpectations() != null) {existingProject.setExpectations(entity.getExpectations());}
+        if (entity.getStartDate() != null) {existingProject.setStartDate(entity.getStartDate());}
+        if (entity.getEndDate() != null) {existingProject.setEndDate(entity.getEndDate());}
+        if (entity.getProjectOwner() != null) {
+            existingProject.setProjectOwner(entity.getProjectOwner());
+        }
+
+        return projectRepository.save(existingProject);
+    }
+
     public void deleteProject(Long id) {
         if (!projectRepository.existsById(id)) {
             throw new IllegalArgumentException("ProjectOwner not found with ID: " + id);
