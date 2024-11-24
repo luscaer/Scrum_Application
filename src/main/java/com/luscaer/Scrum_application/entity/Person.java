@@ -10,20 +10,25 @@ import jakarta.validation.constraints.Pattern;
 public abstract class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    protected Long id;
 
     @NotNull
+    @Column(nullable = false)
     @Pattern(regexp = ".*\\S.*", message = "Name cannot be blank.")
-    private String name;
+    protected String name;
 
     @NotNull
+    @Column(nullable = false)
     @Email(message = "Invalid Email Format.")
-    private String email;
+    protected String email;
 
     @NotNull
+    @Column(nullable = false)
     @Pattern(regexp = "^\\d{2}9\\d{8}$", message = "Phone number format is invalid.")
-    private String phone;
+    protected String phone;
 
     @Enumerated(EnumType.STRING)
-    private Gender gender;
+    @NotNull
+    @Column(nullable = false)
+    protected Gender gender;
 }
