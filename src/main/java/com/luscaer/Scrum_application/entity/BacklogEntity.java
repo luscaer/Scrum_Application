@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 @Entity
 @Data
-public class Backlog {
+public class BacklogEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,5 +36,5 @@ public class Backlog {
     private int complexity;
 
     @ManyToOne
-    private Project project;
+    private ProjectEntity project;
 }

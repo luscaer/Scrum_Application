@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Data
-public class Project {
+public class ProjectEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,8 +22,8 @@ public class Project {
     private String expectations;
 
     @ManyToOne
-    private ProjectOwner projectOwner;
+    private ProjectOwnerEntity projectOwner;
 
     @OneToMany(mappedBy = "project")
-    private List<Backlog> backlog;
+    private List<BacklogEntity> backlog;
 }
