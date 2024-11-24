@@ -21,18 +21,34 @@ public class ProjectOwnerService {
         return projectOwnerRepository.save(projectOwner);
     }
 
-    public ProjectOwnerEntity putProjectOwner(ProjectOwnerDTO dto){
+    public ProjectOwnerEntity updateProjectOwner(ProjectOwnerDTO dto){
         if (dto.id() == null) {
             throw new IllegalArgumentException("ID is required for updating a ProjectOwner");
         }
 
-        ProjectOwnerEntity existingProjectOwner =getById(dto.id());
+        ProjectOwnerEntity existingProjectOwner = getById(dto.id());
 
         if (dto.name() != null) {existingProjectOwner.setName(dto.name());}
         if (dto.email() != null) {existingProjectOwner.setEmail(dto.email());}
         if (dto.phone() != null) {existingProjectOwner.setPhone(dto.phone());}
         if (dto.gender() != null) {existingProjectOwner.setGender(Gender.valueOf(dto.gender()));}
         if (dto.responsibilities() != null) {existingProjectOwner.setResponsibilities(dto.responsibilities());}
+
+        return projectOwnerRepository.save(existingProjectOwner);
+    }
+
+    public ProjectOwnerEntity updateProjectOwner(ProjectOwnerEntity entity) {
+        if (entity.getId() == null) {
+            throw new IllegalArgumentException("ID is required for updating a ProjectOwner");
+        }
+
+        ProjectOwnerEntity existingProjectOwner = getById(entity.getId());
+
+        if (entity.getName() != null) {existingProjectOwner.setName(entity.getName());}
+        if (entity.getEmail() != null) {existingProjectOwner.setEmail(entity.getEmail());}
+        if (entity.getPhone() != null) {existingProjectOwner.setPhone(entity.getPhone());}
+        if (entity.getGender() != null) {existingProjectOwner.setGender(entity.getGender());}
+        if (entity.getResponsibilities() != null) {existingProjectOwner.setResponsibilities(entity.getResponsibilities());}
 
         return projectOwnerRepository.save(existingProjectOwner);
     }

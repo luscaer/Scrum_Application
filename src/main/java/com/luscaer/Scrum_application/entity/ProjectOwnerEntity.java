@@ -1,5 +1,6 @@
 package com.luscaer.Scrum_application.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.luscaer.Scrum_application.enums.Gender;
 import com.luscaer.Scrum_application.model.ProjectOwnerDTO;
 import jakarta.persistence.Column;
@@ -24,6 +25,7 @@ public class ProjectOwnerEntity extends Person{
     private String responsibilities;
 
     @OneToMany
+    @JsonBackReference
     private List<ProjectEntity> projects;
 
     public ProjectOwnerEntity(ProjectOwnerDTO dto) {

@@ -27,7 +27,7 @@ public class ProjectOwnerController {
 
     @PutMapping
     public ResponseEntity<ProjectOwnerEntity> updateProjectOwner(@RequestBody ProjectOwnerDTO dto) {
-        ProjectOwnerEntity updatedProjectOwner = projectOwnerService.putProjectOwner(dto);
+        ProjectOwnerEntity updatedProjectOwner = projectOwnerService.updateProjectOwner(dto);
         return ResponseEntity.ok(updatedProjectOwner);
     }
 
