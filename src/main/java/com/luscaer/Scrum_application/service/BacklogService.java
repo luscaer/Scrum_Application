@@ -4,6 +4,8 @@ import com.luscaer.Scrum_application.entity.BacklogEntity;
 import com.luscaer.Scrum_application.entity.ProjectEntity;
 import com.luscaer.Scrum_application.enums.BacklogStatus;
 import com.luscaer.Scrum_application.enums.Priority;
+import com.luscaer.Scrum_application.exception.EntityNotFoundException;
+import com.luscaer.Scrum_application.exception.InvalidRequestException;
 import com.luscaer.Scrum_application.model.BacklogDTO;
 import com.luscaer.Scrum_application.repository.BacklogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +40,7 @@ public class BacklogService {
     }
 
     public BacklogEntity getById(Long id) {
-        return backlogRepository.findById(id).orElseThrow(() -> new RuntimeException("Backlog not found with ID: " + id));
+        return backlogRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Backlog", id));
     }
 
     public BacklogEntity postBacklog(BacklogDTO dto) {
@@ -63,7 +65,7 @@ public class BacklogService {
 
     public BacklogEntity updateBacklog(BacklogDTO dto) {
         if (dto.id() == null) {
-            throw new IllegalArgumentException("ID is required for updating a Backlog");
+            throw new InvalidRequestException("ID is required for updating a Backlog");
         }
 
         BacklogEntity existingBacklog = getById(dto.id());
@@ -83,7 +85,7 @@ public class BacklogService {
 
     public void deleteBacklog(Long id) {
         if (!backlogRepository.existsById(id)) {
-            throw new IllegalArgumentException("Backlog not found with ID: " + id);
+            throw new EntityNotFoundException("Backlog", id);
         }
         backlogRepository.deleteById(id);
     }

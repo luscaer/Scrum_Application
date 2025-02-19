@@ -2,6 +2,8 @@ package com.luscaer.Scrum_application.service;
 
 import com.luscaer.Scrum_application.entity.ProjectOwnerEntity;
 import com.luscaer.Scrum_application.enums.Gender;
+import com.luscaer.Scrum_application.exception.EntityNotFoundException;
+import com.luscaer.Scrum_application.exception.InvalidRequestException;
 import com.luscaer.Scrum_application.model.ProjectOwnerDTO;
 import com.luscaer.Scrum_application.repository.ProjectOwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,7 @@ public class ProjectOwnerService {
     private ProjectOwnerRepository projectOwnerRepository;
 
     public ProjectOwnerEntity getById(Long id){
-        return projectOwnerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("ProjectOwner not found with ID: " + id));
+        return projectOwnerRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("ProjectOwner", id));
     }
 
     public ProjectOwnerEntity postProjectOwner(ProjectOwnerDTO dto){
@@ -23,7 +25,7 @@ public class ProjectOwnerService {
 
     public ProjectOwnerEntity updateProjectOwner(ProjectOwnerDTO dto){
         if (dto.id() == null) {
-            throw new IllegalArgumentException("ID is required for updating a ProjectOwner");
+            throw new InvalidRequestException("ID is required for updating a ProjectOwner");
         }
 
         ProjectOwnerEntity existingProjectOwner = getById(dto.id());
@@ -39,7 +41,7 @@ public class ProjectOwnerService {
 
     public ProjectOwnerEntity updateProjectOwner(ProjectOwnerEntity entity) {
         if (entity.getId() == null) {
-            throw new IllegalArgumentException("ID is required for updating a ProjectOwner");
+            throw new InvalidRequestException("ID is required for updating a ProjectOwner");
         }
 
         ProjectOwnerEntity existingProjectOwner = getById(entity.getId());
@@ -55,7 +57,7 @@ public class ProjectOwnerService {
 
     public void deleteProjectOwner(Long id) {
         if (!projectOwnerRepository.existsById(id)) {
-            throw new IllegalArgumentException("ProjectOwner not found with ID: " + id);
+            throw new EntityNotFoundException("ProjectOwner", id);
         }
         projectOwnerRepository.deleteById(id);
     }

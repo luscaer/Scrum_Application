@@ -2,6 +2,8 @@ package com.luscaer.Scrum_application.service;
 
 import com.luscaer.Scrum_application.entity.ProjectEntity;
 import com.luscaer.Scrum_application.entity.ProjectOwnerEntity;
+import com.luscaer.Scrum_application.exception.EntityNotFoundException;
+import com.luscaer.Scrum_application.exception.InvalidRequestException;
 import com.luscaer.Scrum_application.model.ProjectDTO;
 import com.luscaer.Scrum_application.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +37,7 @@ public class ProjectService {
     }
 
     public ProjectEntity getById(Long id) {
-        return projectRepository.findById(id).orElseThrow(() -> new RuntimeException("Project not found with ID: " + id));
+        return projectRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Project", id));
     }
 
     public ProjectEntity postProject(ProjectDTO dto) {
@@ -60,7 +62,7 @@ public class ProjectService {
 
     public ProjectEntity updateProject(ProjectDTO dto) {
         if (dto.id() == null) {
-            throw new IllegalArgumentException("ID is required for updating a Project");
+            throw new InvalidRequestException("ID is required for updating a Project");
         }
 
         ProjectEntity existingProject = getById(dto.id());
@@ -79,7 +81,7 @@ public class ProjectService {
 
     public ProjectEntity updateProject(ProjectEntity entity) {
         if (entity.getId()== null) {
-            throw new IllegalArgumentException("ID is required for updating a Project");
+            throw new InvalidRequestException("ID is required for updating a Project");
         }
 
         ProjectEntity existingProject = getById(entity.getId());
@@ -97,7 +99,7 @@ public class ProjectService {
 
     public void deleteProject(Long id) {
         if (!projectRepository.existsById(id)) {
-            throw new IllegalArgumentException("Project not found with ID: " + id);
+            throw new EntityNotFoundException("Project", id);
         }
         projectRepository.deleteById(id);
     }
