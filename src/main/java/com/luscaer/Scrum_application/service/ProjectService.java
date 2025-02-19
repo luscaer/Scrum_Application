@@ -35,7 +35,7 @@ public class ProjectService {
     }
 
     public ProjectEntity getById(Long id) {
-        return projectRepository.findById(id).orElseThrow(() -> new RuntimeException("Projeto não encontrado com ID: " + id));
+        return projectRepository.findById(id).orElseThrow(() -> new RuntimeException("Project not found with ID: " + id));
     }
 
     public ProjectEntity postProject(ProjectDTO dto) {
@@ -97,7 +97,7 @@ public class ProjectService {
 
     public void deleteProject(Long id) {
         if (!projectRepository.existsById(id)) {
-            throw new IllegalArgumentException("ProjectOwner not found with ID: " + id);
+            throw new IllegalArgumentException("Project not found with ID: " + id);
         }
         projectRepository.deleteById(id);
     }

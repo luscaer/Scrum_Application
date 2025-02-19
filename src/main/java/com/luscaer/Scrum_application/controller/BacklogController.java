@@ -20,14 +20,14 @@ public class BacklogController {
     }
 
     @PostMapping
-    public ResponseEntity<BacklogEntity> postBacklog(@RequestBody BacklogDTO dto) {
+    public ResponseEntity<BacklogEntity> createBacklog(@RequestBody BacklogDTO dto) {
         BacklogEntity backlog = backlogService.postBacklog(dto);
         return ResponseEntity.ok(backlog);
     }
 
     @PutMapping
     public ResponseEntity<BacklogEntity> updateBacklog(@RequestBody BacklogDTO dto) {
-        BacklogEntity updatedBacklog = backlogService.updateProject(dto);
+        BacklogEntity updatedBacklog = backlogService.updateBacklog(dto);
         return ResponseEntity.ok(updatedBacklog);
     }
 

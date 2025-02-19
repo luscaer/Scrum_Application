@@ -38,7 +38,7 @@ public class BacklogService {
     }
 
     public BacklogEntity getById(Long id) {
-        return backlogRepository.findById(id).orElseThrow(() -> new RuntimeException("Projeto não encontrado com ID: " + id));
+        return backlogRepository.findById(id).orElseThrow(() -> new RuntimeException("Backlog not found with ID: " + id));
     }
 
     public BacklogEntity postBacklog(BacklogDTO dto) {
@@ -61,9 +61,9 @@ public class BacklogService {
         return savedBacklog;
     }
 
-    public BacklogEntity updateProject(BacklogDTO dto) {
+    public BacklogEntity updateBacklog(BacklogDTO dto) {
         if (dto.id() == null) {
-            throw new IllegalArgumentException("ID is required for updating a Project");
+            throw new IllegalArgumentException("ID is required for updating a Backlog");
         }
 
         BacklogEntity existingBacklog = getById(dto.id());
@@ -83,7 +83,7 @@ public class BacklogService {
 
     public void deleteBacklog(Long id) {
         if (!backlogRepository.existsById(id)) {
-            throw new IllegalArgumentException("ProjectOwner not found with ID: " + id);
+            throw new IllegalArgumentException("Backlog not found with ID: " + id);
         }
         backlogRepository.deleteById(id);
     }

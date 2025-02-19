@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @MappedSuperclass
@@ -16,7 +17,7 @@ public abstract class Person {
 
     @NotNull
     @Column(nullable = false)
-    @Pattern(regexp = ".*\\S.*", message = "Name cannot be blank.")
+    @Size(min = 2, max = 100, message = "The name must be between 2 and 100 characters.")
     protected String name;
 
     @NotNull
@@ -29,8 +30,8 @@ public abstract class Person {
     @Pattern(regexp = "^\\d{2}9\\d{8}$", message = "Phone number format is invalid.")
     protected String phone;
 
-    @Enumerated(EnumType.STRING)
     @NotNull
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     protected Gender gender;
 }

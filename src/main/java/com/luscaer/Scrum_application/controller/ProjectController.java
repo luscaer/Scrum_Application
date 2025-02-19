@@ -20,7 +20,7 @@ public class ProjectController {
     }
 
     @PostMapping
-    public ResponseEntity<ProjectEntity> postProject(@RequestBody ProjectDTO dto) {
+    public ResponseEntity<ProjectEntity> createProject(@RequestBody ProjectDTO dto) {
         ProjectEntity project = projectService.postProject(dto);
         return ResponseEntity.ok(project);
     }
