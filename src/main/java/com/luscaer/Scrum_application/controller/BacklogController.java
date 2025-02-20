@@ -3,12 +3,12 @@ package com.luscaer.Scrum_application.controller;
 import com.luscaer.Scrum_application.entity.BacklogEntity;
 import com.luscaer.Scrum_application.model.BacklogDTO;
 import com.luscaer.Scrum_application.service.BacklogService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/api/backlogs")
 public class BacklogController {
     @Autowired
@@ -20,13 +20,13 @@ public class BacklogController {
     }
 
     @PostMapping
-    public ResponseEntity<BacklogEntity> createBacklog(@RequestBody BacklogDTO dto) {
+    public ResponseEntity<BacklogEntity> createBacklog(@Valid @RequestBody BacklogDTO dto) {
         BacklogEntity backlog = backlogService.postBacklog(dto);
         return ResponseEntity.ok(backlog);
     }
 
     @PutMapping
-    public ResponseEntity<BacklogEntity> updateBacklog(@RequestBody BacklogDTO dto) {
+    public ResponseEntity<BacklogEntity> updateBacklog(@Valid @RequestBody BacklogDTO dto) {
         BacklogEntity updatedBacklog = backlogService.updateBacklog(dto);
         return ResponseEntity.ok(updatedBacklog);
     }

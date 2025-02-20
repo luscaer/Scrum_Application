@@ -3,12 +3,12 @@ package com.luscaer.Scrum_application.controller;
 import com.luscaer.Scrum_application.entity.ProjectEntity;
 import com.luscaer.Scrum_application.model.ProjectDTO;
 import com.luscaer.Scrum_application.service.ProjectService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/api/projects")
 public class ProjectController {
     @Autowired
@@ -20,13 +20,13 @@ public class ProjectController {
     }
 
     @PostMapping
-    public ResponseEntity<ProjectEntity> createProject(@RequestBody ProjectDTO dto) {
+    public ResponseEntity<ProjectEntity> createProject(@Valid @RequestBody ProjectDTO dto) {
         ProjectEntity project = projectService.postProject(dto);
         return ResponseEntity.ok(project);
     }
 
     @PutMapping
-    public ResponseEntity<ProjectEntity> updateProject(@RequestBody ProjectDTO dto) {
+    public ResponseEntity<ProjectEntity> updateProject(@Valid @RequestBody ProjectDTO dto) {
         ProjectEntity updatedProject = projectService.updateProject(dto);
         return ResponseEntity.ok(updatedProject);
     }

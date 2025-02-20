@@ -3,14 +3,15 @@ package com.luscaer.Scrum_application.controller;
 import com.luscaer.Scrum_application.entity.ProjectOwnerEntity;
 import com.luscaer.Scrum_application.model.ProjectOwnerDTO;
 import com.luscaer.Scrum_application.service.ProjectOwnerService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/api/project-owners")
 public class ProjectOwnerController {
+
     @Autowired
     private ProjectOwnerService projectOwnerService;
 
@@ -20,13 +21,13 @@ public class ProjectOwnerController {
     }
 
     @PostMapping
-    public ResponseEntity<ProjectOwnerEntity> createProjectOwner(@RequestBody ProjectOwnerDTO dto) {
+    public ResponseEntity<ProjectOwnerEntity> createProjectOwner(@Valid @RequestBody ProjectOwnerDTO dto) {
         ProjectOwnerEntity projectOwner = projectOwnerService.postProjectOwner(dto);
         return ResponseEntity.ok(projectOwner);
     }
 
     @PutMapping
-    public ResponseEntity<ProjectOwnerEntity> updateProjectOwner(@RequestBody ProjectOwnerDTO dto) {
+    public ResponseEntity<ProjectOwnerEntity> updateProjectOwner(@Valid @RequestBody ProjectOwnerDTO dto) {
         ProjectOwnerEntity updatedProjectOwner = projectOwnerService.updateProjectOwner(dto);
         return ResponseEntity.ok(updatedProjectOwner);
     }

@@ -20,25 +20,19 @@ public class BacklogEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
     @Column(nullable = false)
-    @Size(max = 500, message = "Description cannot exceed 500 characters.")
     private String description;
 
     @Enumerated(EnumType.STRING)
-    @NotNull
     @Column(nullable = false)
     private Priority priority;
 
     @Enumerated(EnumType.STRING)
-    @NotNull
     @Column(nullable = false)
     private BacklogStatus status;
 
-    @FutureOrPresent
     private LocalDate deadline;
 
-    @Min(value = 1, message = "The complexity must be at least 1.")
     private Integer complexity;
 
     @ManyToOne

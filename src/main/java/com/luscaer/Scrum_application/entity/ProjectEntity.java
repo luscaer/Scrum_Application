@@ -19,20 +19,14 @@ public class ProjectEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
     @Column(nullable = false)
-    @Size(min = 2, max = 100, message = "The name must be between 2 and 100 characters.")
     private String name;
 
-    @NotNull
     @Column(nullable = false)
-    @Size(max = 1000, message = "Responsibilities cannot exceed 1000 characters.")
     private String expectations;
 
-    @PastOrPresent
     private LocalDate startDate;
 
-    @FutureOrPresent
     private LocalDate endDate;
 
     @ManyToOne

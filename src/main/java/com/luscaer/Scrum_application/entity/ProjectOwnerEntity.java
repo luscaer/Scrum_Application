@@ -19,9 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class ProjectOwnerEntity extends Person{
-    @NotNull
     @Column(nullable = false)
-    @Size(max = 500, message = "Responsibilities cannot exceed 500 characters.")
     private String responsibilities;
 
     @OneToMany(mappedBy = "projectOwner", cascade = CascadeType.ALL, orphanRemoval = true)
