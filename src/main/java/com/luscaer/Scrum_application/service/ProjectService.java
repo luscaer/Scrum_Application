@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ProjectService {
@@ -39,6 +40,8 @@ public class ProjectService {
     public ProjectEntity getById(Long id) {
         return projectRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Project", id));
     }
+
+    public List<ProjectEntity> getAllProjects() { return projectRepository.findAll(); }
 
     public ProjectEntity postProject(ProjectDTO dto) {
         ProjectEntity projectEntity = convertDtoToEntity(dto);
