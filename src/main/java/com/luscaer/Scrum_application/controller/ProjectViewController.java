@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class ProjectViewController {
     }
 
     @GetMapping("/{id}")
-    public String getProjectDetails(@PathVariable Long id, Model model) {
+    public String getProjectById(@PathVariable Long id, Model model) {
         ProjectEntity project = projectService.getById(id);
         if (project != null) {
             model.addAttribute("project", project);
@@ -38,19 +39,18 @@ public class ProjectViewController {
     }
 
     @GetMapping("/new")
-    public String showAddProjectForm(Model model) {
-        model.addAttribute("projectDTO", new ProjectDTO(null, "", "", null, null, null));
-        return "projects/new-project";
+    public ModelAndView showAddProjectForm() {
+        ModelAndView mv = new ModelAndView("projects/new-project");
+        mv.addObject("projectDTO", new ProjectDTO(null, "", "", null, null, null));
+        return mv;
     }
 
     @PostMapping
-    public String addProject(@Valid @ModelAttribute("projectDTO") ProjectDTO projectDTO, BindingResult result, Model model) {
+    public ModelAndView createProject(@Valid @ModelAttribute("projectDTO") ProjectDTO projectDTO, BindingResult result) {
         if (result.hasErrors()) {
-            // Se houver erros de validação, retorne para o formulário com as mensagens de erro
-            return "projects/new-project";
+            return new ModelAndView("projects/new-project");
         }
-        // Lógica para salvar o projeto
         projectService.postProject(projectDTO);
-        return "redirect:/projects"; // Redireciona para a listagem de projetos após a adição
+        return new ModelAndView("redirect:/projects");
     }
 }

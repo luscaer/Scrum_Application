@@ -1,4 +1,4 @@
-package com.luscaer.Scrum_application.controller;
+package com.luscaer.Scrum_application.apiController;
 
 import com.luscaer.Scrum_application.entity.ProjectOwnerEntity;
 import com.luscaer.Scrum_application.model.ProjectOwnerDTO;

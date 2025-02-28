@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class BacklogService {
@@ -42,6 +43,8 @@ public class BacklogService {
     public BacklogEntity getById(Long id) {
         return backlogRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Backlog", id));
     }
+
+    public List<BacklogEntity> getAllBacklogs() { return backlogRepository.findAll(); }
 
     public BacklogEntity postBacklog(BacklogDTO dto) {
         BacklogEntity backlogEntity = convertDtoToEntity(dto);

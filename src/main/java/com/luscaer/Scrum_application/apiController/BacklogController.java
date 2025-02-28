@@ -1,4 +1,4 @@
-package com.luscaer.Scrum_application.controller;
+package com.luscaer.Scrum_application.apiController;
 
 import com.luscaer.Scrum_application.entity.BacklogEntity;
 import com.luscaer.Scrum_application.model.BacklogDTO;

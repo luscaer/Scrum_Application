@@ -1,4 +1,4 @@
-package com.luscaer.Scrum_application.controller;
+package com.luscaer.Scrum_application.apiController;
 
 import com.luscaer.Scrum_application.entity.ProjectEntity;
 import com.luscaer.Scrum_application.model.ProjectDTO;
@@ -17,7 +17,7 @@ public class ProjectController {
     private ProjectService projectService;
 
     @GetMapping
-    public ResponseEntity<List<ProjectEntity>> getAll() {
+    public ResponseEntity<List<ProjectEntity>> getAllProjects() {
         List<ProjectEntity> projects = projectService.getAllProjects();
         return ResponseEntity.ok(projects);
     }
