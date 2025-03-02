@@ -12,6 +12,7 @@ public record ProjectDTO(
         String name,
 
         @NotBlank(message = "Expectations cannot be blank")
+        @Size(max = 500, message = "Expectations must be at most 500 characters")
         String expectations,
 
         @NotNull(message = "Start date cannot be null")

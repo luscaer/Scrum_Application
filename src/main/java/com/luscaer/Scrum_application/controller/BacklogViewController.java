@@ -63,6 +63,18 @@ public class BacklogViewController {
         }
     }
 
+    @GetMapping("/{id}/delete")
+    public String deleteBacklog(@PathVariable Long id) {
+        try {
+            backlogService.deleteBacklog(id);
+            return "redirect:/backlogs";
+        } catch (Exception e) {
+            System.out.println(e);
+            return "redirect:/backlogs";
+        }
+
+    }
+
     @PostMapping
     public ModelAndView createBacklog(@Valid @ModelAttribute("backlogDTO") BacklogDTO backlogDTO, BindingResult result) {
         if (result.hasErrors()) {

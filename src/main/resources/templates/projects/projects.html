@@ -21,7 +21,7 @@
             <td class="action-buttons">
                 <a th:href="@{/projects/{id}(id=${project.id})}" class="btn btn-info btn-sm">Ver detalhes</a>
                 <a th:href="@{/projects/{id}/edit(id=${project.id})}" class="btn btn-warning btn-sm">Editar</a>
-                <a th:href="@{/projects/delete/{id}(id=${project.id})}" class="btn btn-danger btn-sm"
+                <a th:href="@{/projects/{id}/delete(id=${project.id})}" class="btn btn-danger btn-sm"
                    onclick="return confirm('Tem certeza que deseja deletar este projeto?');">Deletar</a>
             </td>
         </tr>

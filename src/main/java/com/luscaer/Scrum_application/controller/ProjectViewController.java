@@ -58,6 +58,17 @@ public class ProjectViewController {
         }
     }
 
+    @GetMapping("/{id}/delete")
+    public String deleteProject(@PathVariable Long id) {
+        try {
+            projectService.deleteProject(id);
+            return "redirect:/projects";
+        } catch (Exception e) {
+            System.out.println(e);
+            return "redirect:/projects";
+        }
+    }
+
     @PostMapping
     public ModelAndView createProject(@Valid @ModelAttribute("projectDTO") ProjectDTO projectDTO, BindingResult result) {
         if (result.hasErrors()) {

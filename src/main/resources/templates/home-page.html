@@ -1,10 +1,76 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/fragments :: head('Home Page')}"></head>
+<head th:replace="~{fragments/fragments :: head('Home Page')}">
+</head>
 <body>
-<div th:replace="~{fragments/fragments :: header('Bem-vindo à página inicial')}"></div>
+<div th:replace="~{fragments/fragments :: header('Scrum Application')}"></div>
+
 <div class="container mt-5">
-    <p>Esta é a página inicial do sistema Scrum.</p>
+    <div class="jumbotron">
+        <h1 class="lead">Implementação de Scrum em Aplicação Web e Mobile (em andamento).</h1>
+        <hr class="my-4">
+        <p>Este projeto tem como objetivo desenvolver uma aplicação utilizando as melhores práticas de Scrum, com foco
+            no desenvolvimento web utilizando o Spring Framework e futuramente no desenvolvimento mobile com
+            Flutter.</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-header">
+                    Visão Geral
+                </div>
+                <div class="card-body">
+                    <p class="card-text">A metodologia Scrum será adotada para garantir uma entrega ágil, contínua e de
+                        alta qualidade, com foco na comunicação eficaz e na colaboração contínua entre as equipes.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-header">
+                    Objetivos do Projeto
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Desenvolver uma aplicação mobile com Flutter <strong>(em
+                            andamento)</strong>.
+                        </li>
+                        <li class="list-group-item">Construir a aplicação web com Spring.</li>
+                        <li class="list-group-item">Implementar a metodologia Scrum.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    Detalhes do Projeto
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Desenvolvimento Mobile com Flutter</h5>
+                    <p class="card-text">O desenvolvimento da aplicação mobile com Flutter está em andamento. A ideia é
+                        aproveitar a flexibilidade do Flutter para criar uma interface de usuário dinâmica e responsiva,
+                        permitindo a execução em múltiplas plataformas (Android e iOS).</p>
+                    <h5 class="card-title">Desenvolvimento Web com Spring</h5>
+                    <p class="card-text">Utilizar o poder do Spring Framework para desenvolver uma aplicação web robusta
+                        e escalável, garantindo segurança e desempenho otimizado.</p>
+                    <h5 class="card-title">Metodologia Scrum</h5>
+                    <p class="card-text">Adotar Scrum para gerenciar o projeto, promovendo entregas incrementais e
+                        melhorias contínuas, com uma forte ênfase na colaboração entre as equipes de
+                        desenvolvimento.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
