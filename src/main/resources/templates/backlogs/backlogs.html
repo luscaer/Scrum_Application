@@ -22,7 +22,7 @@
             <td th:text="${backlog.project.name}"></td>
             <td class="action-buttons">
                 <a th:href="@{/backlogs/{id}(id=${backlog.id})}" class="btn btn-info btn-sm">Ver detalhes</a>
-                <a th:href="@{/backlogs/edit/{id}(id=${backlog.id})}" class="btn btn-warning btn-sm">Editar</a>
+                <a th:href="@{/backlogs/{id}/edit(id=${backlog.id})}" class="btn btn-warning btn-sm">Editar</a>
                 <a th:href="@{/backlogs/delete/{id}(id=${backlog.id})}" class="btn btn-danger btn-sm"
                    onclick="return confirm('Tem certeza que deseja deletar este backlog?');">Deletar</a>
             </td>

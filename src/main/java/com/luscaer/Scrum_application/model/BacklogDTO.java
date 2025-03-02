@@ -1,6 +1,8 @@
 package com.luscaer.Scrum_application.model;
 
+import com.luscaer.Scrum_application.entity.BacklogEntity;
 import jakarta.validation.constraints.*;
+
 import java.time.LocalDate;
 
 public record BacklogDTO(
@@ -28,4 +30,16 @@ public record BacklogDTO(
         @NotNull(message = "Project ID cannot be null")
         @Positive(message = "Project ID must be a positive number")
         Long projectId
-) {}
+) {
+    public static BacklogDTO fromEntity(BacklogEntity backlog) {
+        return new BacklogDTO(
+                backlog.getId(),
+                backlog.getDescription(),
+                backlog.getPriority().name(),
+                backlog.getStatus().name(),
+                backlog.getDeadline(),
+                backlog.getComplexity(),
+                backlog.getProject() != null ? backlog.getProject().getId() : null
+        );
+    }
+}

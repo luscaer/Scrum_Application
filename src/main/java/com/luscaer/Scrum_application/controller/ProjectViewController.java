@@ -1,8 +1,6 @@
 package com.luscaer.Scrum_application.controller;
 
 import com.luscaer.Scrum_application.entity.ProjectEntity;
-import com.luscaer.Scrum_application.enums.BacklogStatus;
-import com.luscaer.Scrum_application.enums.Priority;
 import com.luscaer.Scrum_application.model.ProjectDTO;
 import com.luscaer.Scrum_application.service.ProjectService;
 import jakarta.validation.Valid;
@@ -42,10 +40,22 @@ public class ProjectViewController {
     }
 
     @GetMapping("/new-project")
-    public ModelAndView showAddProjectForm() {
+    public ModelAndView showAddProjectForm(ProjectDTO projectDTO) {
         ModelAndView mv = new ModelAndView("projects/new-project");
-        mv.addObject("projectDTO", new ProjectDTO(null, "", "", null, null, null));
         return mv;
+    }
+
+    @GetMapping("/{id}/edit")
+    public ModelAndView showEditProjectForm(@PathVariable Long id) {
+        ProjectEntity project = projectService.getById(id);
+        if (project != null) {
+            ProjectDTO projectDTO = ProjectDTO.fromEntity(project);
+            ModelAndView mv = new ModelAndView("projects/edit-project");
+            mv.addObject(projectDTO);
+            return mv;
+        } else {
+            return new ModelAndView("redirect:/projects");
+        }
     }
 
     @PostMapping
@@ -54,10 +64,28 @@ public class ProjectViewController {
             return new ModelAndView("projects/new-project");
         }
         try {
-            projectService.postProject(projectDTO);
-            return new ModelAndView("redirect:/projects");
+            ProjectEntity project = projectService.postProject(projectDTO);
+            return new ModelAndView("redirect:/projects/" + project.getId());
         } catch (Exception e) {
             ModelAndView mv = new ModelAndView("projects/new-project");
+            mv.addObject("errorMessage", e.getMessage());
+            return mv;
+        }
+    }
+
+    @PostMapping("/{id}")
+    public ModelAndView updateProject(@PathVariable Long id, @Valid @ModelAttribute("projectDTO") ProjectDTO projectDTO, BindingResult result) {
+        if (result.hasErrors()) {
+            ModelAndView mv = new ModelAndView("projects/edit-project");
+            mv.addObject("projectDTO", projectDTO);
+            return mv;
+        }
+        try {
+            ProjectEntity updatedProject = projectService.updateProject(projectDTO);
+            return new ModelAndView("redirect:/projects/" + updatedProject.getId());
+        } catch (Exception e) {
+            ModelAndView mv = new ModelAndView("projects/edit-project");
+            mv.addObject("projectDTO", projectDTO);
             mv.addObject("errorMessage", e.getMessage());
             return mv;
         }

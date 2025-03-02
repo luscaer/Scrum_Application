@@ -12,7 +12,12 @@
             <p class="card-text"><strong>Data de Término:</strong> <span th:text="${project.endDate}"></span></p>
             <p class="card-text"><strong>Proprietário do Projeto:</strong> <span
                     th:text="${project.projectOwner.name}"></span></p>
-            <a href="/projects" class="btn btn-primary">Voltar</a>
+            <div class="row">
+                <div class="col-12">
+                    <a th:href="@{/projects/{id}/edit(id=${project.id})}" class="btn btn-warning">Editar</a>
+                    <a href="/projects" class="btn btn-primary">Voltar</a>
+                </div>
+            </div>
         </div>
     </div>
 

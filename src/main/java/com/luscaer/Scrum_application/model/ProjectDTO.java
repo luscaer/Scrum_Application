@@ -1,5 +1,6 @@
 package com.luscaer.Scrum_application.model;
 
+import com.luscaer.Scrum_application.entity.ProjectEntity;
 import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 
@@ -14,7 +15,6 @@ public record ProjectDTO(
         String expectations,
 
         @NotNull(message = "Start date cannot be null")
-        @FutureOrPresent(message = "Start date must be in the present or future")
         LocalDate startDate,
 
         @NotNull(message = "End date cannot be null")
@@ -24,4 +24,15 @@ public record ProjectDTO(
         @NotNull(message = "Project owner ID cannot be null")
         @Positive(message = "Project owner ID must be a positive number")
         Long projectOwnerId
-) {}
+) {
+        public static ProjectDTO fromEntity(ProjectEntity project) {
+                return new ProjectDTO(
+                        project.getId(),
+                        project.getName(),
+                        project.getExpectations(),
+                        project.getStartDate(),
+                        project.getEndDate(),
+                        project.getProjectOwner() != null ? project.getProjectOwner().getId() : null
+                );
+        }
+}

@@ -41,12 +41,26 @@ public class BacklogViewController {
     }
 
     @GetMapping("/new-backlog")
-    public ModelAndView showAddProjectForm() {
+    public ModelAndView showAddBacklogForm(BacklogDTO backlogDTO) {
         ModelAndView mv = new ModelAndView("backlogs/new-backlog");
         mv.addObject("priorityE", Priority.values());
         mv.addObject("backlogStatus", BacklogStatus.values());
-        mv.addObject("backlogDTO", new BacklogDTO(null, "", "", "", null, null, null));
         return mv;
+    }
+
+    @GetMapping("/{id}/edit")
+    public ModelAndView showEditbacklogForm(@PathVariable Long id) {
+        BacklogEntity backlog = backlogService.getById(id);
+        if (backlog != null) {
+            BacklogDTO backlogDTO = BacklogDTO.fromEntity(backlog);
+            ModelAndView mv = new ModelAndView("backlogs/edit-backlog");
+            mv.addObject("priorityE", Priority.values());
+            mv.addObject("backlogStatus", BacklogStatus.values());
+            mv.addObject("backlogDTO", backlogDTO);
+            return mv;
+        } else {
+            return new ModelAndView("redirect:/backlogs");
+        }
     }
 
     @PostMapping
@@ -58,12 +72,34 @@ public class BacklogViewController {
             return mv;
         }
         try {
-            backlogService.postBacklog(backlogDTO);
-            return new ModelAndView("redirect:/backlogs");
+            BacklogEntity backlog = backlogService.postBacklog(backlogDTO);
+            return new ModelAndView("redirect:/backlogs/" + backlog.getId());
         } catch (Exception e) {
             ModelAndView mv = new ModelAndView("backlogs/new-backlog");
             mv.addObject("priorityE", Priority.values());
             mv.addObject("backlogStatus", BacklogStatus.values());
+            mv.addObject("errorMessage", e.getMessage());
+            return mv;
+        }
+    }
+
+    @PostMapping("/{id}")
+    public ModelAndView updateBacklog(@PathVariable Long id, @Valid @ModelAttribute("backlogDTO") BacklogDTO backlogDTO, BindingResult result) {
+        if (result.hasErrors()) {
+            ModelAndView mv = new ModelAndView("backlogs/edit-backlog");
+            mv.addObject("priorityE", Priority.values());
+            mv.addObject("backlogStatus", BacklogStatus.values());
+            mv.addObject("backlogDTO", backlogDTO);
+            return mv;
+        }
+        try {
+            BacklogEntity updatedbacklog = backlogService.updateBacklog(backlogDTO);
+            return new ModelAndView("redirect:/backlogs/" + updatedbacklog.getId());
+        } catch (Exception e) {
+            ModelAndView mv = new ModelAndView("backlogs/edit-backlog");
+            mv.addObject("priorityE", Priority.values());
+            mv.addObject("backlogStatus", BacklogStatus.values());
+            mv.addObject("backlogDTO", backlogDTO);
             mv.addObject("errorMessage", e.getMessage());
             return mv;
         }
