@@ -1,0 +1,45 @@
+<div class="container" th:fragment="form(backlogDTO, action)">
+    <form th:action="${action}" th:object="${backlogDTO}" method="POST">
+        <div class="form-group">
+            <label for="description">Descrição do Backlog</label>
+            <textarea type="text" class="form-control" th:errorclass="is-invalid" id="description"
+                      th:field="*{description}"></textarea>
+            <small class="form-text text-muted">A descrição deve ter no máximo 500 caracteres.</small>
+            <div class="invalid-feedback" th:errors="*{description}"></div>
+        </div>
+        <div class="form-group">
+            <label for="priority">Prioridade</label>
+            <select class="form-select" id="priority" th:field="*{priority}">
+                <option th:each="priority : ${priorityE}" th:value="${priority}" th:text="${priority}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select class="form-select" id="status" th:field="*{status}">
+                <option th:each="status : ${backlogStatus}" th:value="${status}" th:text="${status}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="deadline">Data Limite</label>
+            <input type="date" class="form-control" id="deadline" th:errorclass="is-invalid" th:field="*{deadline}">
+            <div class="invalid-feedback" th:errors="*{deadline}"></div>
+        </div>
+        <div class="form-group">
+            <label for="complexity">Nível de Complexidade</label>
+            <input type="number" class="form-control" th:errorclass="is-invalid" id="complexity"
+                   th:field="*{complexity}" min="1" max="10">
+            <div class="invalid-feedback" th:errors="*{complexity}"></div>
+        </div>
+        <div class="form-group">
+            <label for="projectId">ID do Projeto Associado</label>
+            <input type="number" class="form-control" th:errorclass="is-invalid" id="projectId" th:field="*{projectId}"
+                   min="1">
+            <div class="invalid-feedback" th:errors="*{projectId}"></div>
+        </div>
+        <div class="alert alert-danger mt-2" th:if="${errorMessage}" th:text="${errorMessage}"></div>
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary">Submeter Backlog</button>
+            <a th:href="@{/backlogs}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>

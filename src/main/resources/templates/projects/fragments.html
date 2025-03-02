@@ -1,0 +1,37 @@
+<div th:fragment="form(projectDTO, action)">
+    <form th:action="${action}" th:object="${projectDTO}" method="POST">
+        <div class="form-group">
+            <label for="name">Nome do Projeto</label>
+            <input type="text" class="form-control" id="name" th:field="*{name}">
+            <small class="form-text text-muted">O nome deve ter entre 2 e 100 caracteres.</small>
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="expectations">Expectativas</label>
+            <textarea class="form-control" id="expectations" th:field="*{expectations}"></textarea>
+            <span th:if="${#fields.hasErrors('expectations')}" th:errors="*{expectations}" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="startDate">Data de Início</label>
+            <input type="date" class="form-control" id="startDate" th:field="*{startDate}">
+            <span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="endDate">Data de Término</label>
+            <input type="date" class="form-control" id="endDate" th:field="*{endDate}">
+            <span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="projectOwnerId">ID do Proprietário do Projeto</label>
+            <input type="number" class="form-control" id="projectOwnerId" th:field="*{projectOwnerId}" min="1">
+            <span th:if="${#fields.hasErrors('projectOwnerId')}" th:errors="*{projectOwnerId}"
+                  class="text-danger"></span>
+        </div>
+        <div class="alert alert-danger mt-2" th:if="${errorMessage}" th:text="${errorMessage}"></div>
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary">Submeter Projeto</button>
+            <a th:href="@{/projects}" class="btn btn-secondary">Cancelar</a>
+        </div>
+
+    </form>
+</div>
