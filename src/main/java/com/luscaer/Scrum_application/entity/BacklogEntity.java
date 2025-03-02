@@ -3,6 +3,7 @@ package com.luscaer.Scrum_application.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.luscaer.Scrum_application.enums.BacklogStatus;
 import com.luscaer.Scrum_application.enums.Priority;
+import com.luscaer.Scrum_application.exception.InvalidRequestException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -39,11 +40,7 @@ public class BacklogEntity {
     @JsonIgnoreProperties({"backlogs"})
     private ProjectEntity project;
 
-    @AssertTrue(message = "Deadline must be before or equal to the project's end date")
-    private boolean isDeadlineBeforeEndDate() {
-        if (project == null || deadline == null) {
-            return true;
-        }
-        return !deadline.isAfter(project.getEndDate());
+    public boolean isDeadlineAfterEndDate() {
+        return deadline.isAfter(project.getEndDate());
     }
 }

@@ -37,6 +37,10 @@ public class BacklogService {
             backlogEntity.setProject(project);
         }
 
+        if (backlogEntity.isDeadlineAfterEndDate()) {
+            throw new InvalidRequestException("Deadline must be before or equal to the project's end date");
+        }
+
         return backlogEntity;
     }
 

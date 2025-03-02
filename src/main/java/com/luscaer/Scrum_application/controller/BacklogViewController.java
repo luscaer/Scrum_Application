@@ -25,6 +25,7 @@ public class BacklogViewController {
     public String getAllBacklogs(Model model) {
         List<BacklogEntity> backlogs = backlogService.getAllBacklogs();
         model.addAttribute("backlogs", backlogs);
+        model.addAttribute("activePage", "backlogs");
         return "backlogs/backlogs";
     }
 
@@ -56,7 +57,16 @@ public class BacklogViewController {
             mv.addObject("backlogStatus", BacklogStatus.values());
             return mv;
         }
-        backlogService.postBacklog(backlogDTO);
-        return new ModelAndView("redirect:/backlogs");
+        try {
+            backlogService.postBacklog(backlogDTO);
+            return new ModelAndView("redirect:/backlogs");
+        } catch (Exception e) {
+            ModelAndView mv = new ModelAndView("backlogs/new-backlog");
+            mv.addObject("priorityE", Priority.values());
+            mv.addObject("backlogStatus", BacklogStatus.values());
+            mv.addObject("errorMessage", e.getMessage());
+            return mv;
+        }
     }
+
 }

@@ -1,6 +1,8 @@
 package com.luscaer.Scrum_application.controller;
 
 import com.luscaer.Scrum_application.entity.ProjectEntity;
+import com.luscaer.Scrum_application.enums.BacklogStatus;
+import com.luscaer.Scrum_application.enums.Priority;
 import com.luscaer.Scrum_application.model.ProjectDTO;
 import com.luscaer.Scrum_application.service.ProjectService;
 import jakarta.validation.Valid;
@@ -24,6 +26,7 @@ public class ProjectViewController {
     public String getAllProjects(Model model) {
         List<ProjectEntity> projects = projectService.getAllProjects();
         model.addAttribute("projects", projects);
+        model.addAttribute("activePage", "projects");
         return "projects/projects";
     }
 
@@ -38,7 +41,7 @@ public class ProjectViewController {
         }
     }
 
-    @GetMapping("/new")
+    @GetMapping("/new-project")
     public ModelAndView showAddProjectForm() {
         ModelAndView mv = new ModelAndView("projects/new-project");
         mv.addObject("projectDTO", new ProjectDTO(null, "", "", null, null, null));
@@ -50,7 +53,13 @@ public class ProjectViewController {
         if (result.hasErrors()) {
             return new ModelAndView("projects/new-project");
         }
-        projectService.postProject(projectDTO);
-        return new ModelAndView("redirect:/projects");
+        try {
+            projectService.postProject(projectDTO);
+            return new ModelAndView("redirect:/projects");
+        } catch (Exception e) {
+            ModelAndView mv = new ModelAndView("projects/new-project");
+            mv.addObject("errorMessage", e.getMessage());
+            return mv;
+        }
     }
 }
